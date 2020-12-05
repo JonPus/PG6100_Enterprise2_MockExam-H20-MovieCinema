@@ -1,0 +1,15 @@
+spring:
+  mvc:
+    throwExceptionIfNoHandlerFound: true
+  resources:
+    add-mappings: false
+  application:
+    name: rooms-service
+  session:
+    store-type: none
+  cloud:
+    consul:
+      host: discovery
+      port: 8500
+      discovery:
+        instanceId: ${spring.application.name}:${random.value}
