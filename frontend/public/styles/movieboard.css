@@ -1,0 +1,22 @@
+.leaderboard-rows {
+  margin: 10px;
+}
+.leaderboard-rows > tr:nth-child(even) {
+  background-color: #121212;
+}
+
+/* .leaderboard-rows > tr:nth-child(odd) {
+} */
+
+.leaderboard-row > td {
+  padding: 10px;
+  text-align: center;
+}
+
+.allScores {
+  font-size: 30px;
+}
+
+.leaderboard-headers {
+  background-color: #121212;
+}

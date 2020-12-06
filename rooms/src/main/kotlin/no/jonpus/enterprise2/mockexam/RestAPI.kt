@@ -24,7 +24,6 @@ class RestAPI {
         const val LATEST = "v1_000"
     }
 
-
     @ApiOperation("Return info on all the rooms in the cinema")
     @GetMapping(
             path = ["/collection_$LATEST"],

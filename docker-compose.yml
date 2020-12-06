@@ -1,0 +1,91 @@
+version: '3.3'
+
+services:
+
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+    depends_on:
+      - discovery
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+  rabbitmq:
+    image: "rabbitmq:3"
+
+  discovery:
+    image: "consul:1.8"
+    environment:
+      - CONSUL_LOCAL_CONFIG={"log_level":"info"}
+
+  redis:
+    image: "redis:latest"
+
+  postgres-auth:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  postgres-user-collections:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  postgres-movies:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
+
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - redis
+      - postgres-auth
+      - rabbitmq
+
+  rooms_0:
+    build:
+      context: ./rooms
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - discovery
+
+  rooms_1:
+    build:
+      context: ./rooms
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - discovery
+
+  user-collections:
+    build:
+      context: ./user-collections
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - discovery
+      - postgres-user-collections
+      - auth
+      - rabbitmq
+
+
+  scores:
+    build:
+      context: ./movies
+      dockerfile: Dockerfile
+    depends_on:
+      - api-gateway
+      - discovery
+      - postgres-movies
+      - rabbitmq

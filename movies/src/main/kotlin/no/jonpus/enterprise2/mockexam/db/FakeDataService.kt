@@ -27,9 +27,9 @@ class FakeDataService(
     fun createRandomMovie(movieId: String) {
         val info = MovieInfo(
             movieId,
-            faker.funnyName().toString(),
-            faker.funnyName().toString(),
-            Random.nextInt(50)
+            faker.book().title(),
+            faker.ancient().god(),
+            Random.nextInt(2015, 2030)
         )
         repository.save(info)
     }

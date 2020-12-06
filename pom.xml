@@ -17,6 +17,8 @@
         <module>movies</module>
         <module>api-gateway</module>
         <module>auth</module>
+        <module>e2e-tests</module>
+        <module>frontend</module>
     </modules>
 
     <properties>
@@ -255,6 +257,7 @@
                 <artifactId>guava</artifactId>
                 <version>28.1-jre</version>
             </dependency>
+
 
         </dependencies>
 

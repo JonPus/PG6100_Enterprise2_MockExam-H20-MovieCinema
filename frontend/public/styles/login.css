@@ -1,0 +1,16 @@
+#registerBtn {
+  background-color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  margin: 10px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  text-align: center;
+  color: black;
+}
+
+#registerBtn:hover {
+  background-color: crimson;
+  color: white;
+}

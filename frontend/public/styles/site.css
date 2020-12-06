@@ -1,0 +1,43 @@
+.center {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.big-text {
+  font-weight: bolder;
+}
+
+.button {
+  background-color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  margin: 10px;
+  width: 100px;
+  height: 40px;
+  border: none;
+}
+
+.button:hover {
+  background-color: crimson;
+  color: white;
+}
+
+body {
+  background-color: #181818;
+  color: white;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+input {
+  width: 200px;
+  height: 25px;
+  background-color: #141414;
+  border-bottom: 2px solid crimson;
+  box-shadow: none;
+  color: white;
+}
+
+a {
+  text-decoration: none;
+}
