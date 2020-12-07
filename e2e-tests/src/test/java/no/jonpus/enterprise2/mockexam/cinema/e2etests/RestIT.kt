@@ -167,7 +167,7 @@ class RestIT {
             .statusCode(403)
     }
 
-    /*@Test
+    @Test
     fun testAMQPSignUp() {
         Awaitility.await().atMost(120, TimeUnit.SECONDS)
             .pollInterval(Duration.ofSeconds(10))
@@ -184,9 +184,9 @@ class RestIT {
                     .then()
                     .statusCode(401)
 
-                given().get("/api/movies/$id")
+                /*given().get("/api/movies/$id")
                     .then()
-                    .statusCode(404)
+                    .statusCode(404)*/
 
 
                 val password = "123456"
@@ -218,17 +218,17 @@ class RestIT {
                             .then()
                             .statusCode(200)
 
-                        given().get("/api/movies/$id")
+                        /*given().get("/api/movies/$id")
                             .then()
                             .statusCode(200)
-                            .body("data.movie", CoreMatchers.equalTo(0))
+                            .body("data.movie", CoreMatchers.equalTo(0))*/
 
                         true
                     }
 
                 true
             }
-    }*/
+    }
 
 
 }

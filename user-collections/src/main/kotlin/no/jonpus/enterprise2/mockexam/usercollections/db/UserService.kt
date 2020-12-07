@@ -48,7 +48,7 @@ class UserService(
         val user = User()
         user.userId = userId
         user.roomPacks = 3
-        user.coins = 100
+        user.coins = 1000
         userRepository.save(user)
         return true
     }
@@ -115,6 +115,8 @@ class UserService(
         val millValue = roomService.millValue(roomId)
         user.coins += millValue
     }
+
+
 
     fun openPack(userId: String): List<String> {
 

@@ -34,7 +34,7 @@ export class HeaderBar extends React.Component {
         <Link className='header-link' to='/collection' tabIndex='0'>
           Your Tickets
         </Link>
-        <Link className='header-link' to='/play' tabIndex='0'>
+        <Link className='header-link' to='/ticket' tabIndex='0'>
           Buy Tickets
         </Link>
         <Link className='header-link' to='/movieboard' tabIndex='0'>

@@ -7,7 +7,8 @@ import Login from './login';
 import SignUp from './signup';
 import HeaderBar from './headerbar';
 import Collection from './collection';
-import Moviebord from './movieboard';
+import Movieboard from './movieboard';
+import { Ticket } from './ticket';
 
 class App extends React.Component {
   constructor(props) {
@@ -107,8 +108,19 @@ class App extends React.Component {
               exact
               path='/movieboard'
               render={(props) => (
-                <Moviebord
+                <Movieboard
                   {...props}
+                  fetchAndUpdateUserInfo={this.fetchAndUpdateUserInfo}
+                />
+              )}
+            />
+            <Route
+              exact
+              path='/ticket'
+              render={(props) => (
+                <Ticket
+                  {...props}
+                  userId={id}
                   fetchAndUpdateUserInfo={this.fetchAndUpdateUserInfo}
                 />
               )}

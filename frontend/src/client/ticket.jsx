@@ -2,14 +2,14 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Movie from './movie';
 
-export class Collection extends React.Component {
+export class Ticket extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       userStats: null,
       collection: null,
-      openedPack: null,
+      boughtSeats: null,
     };
   }
 
@@ -78,14 +78,14 @@ export class Collection extends React.Component {
     this.setState({ userStats: payload.data, errorMsg: null });
   };
 
-  openPack = async () => {
+  buyTicket = async () => {
     const userId = this.props.userId;
     const url = '/api/user-collections/' + userId;
 
     let response;
 
     const data = {
-      command: 'OPEN_PACK',
+      command: 'BUY_ROOM',
     };
 
     try {
@@ -120,19 +120,18 @@ export class Collection extends React.Component {
       return;
     }
 
-    this.setState({ openedPack: payload.data, errorMsg: null });
+    this.setState({ boughtSeats: payload.data, errorMsg: null });
     this.fetchUserStats();
   };
 
-  closePackView = () => {
-    this.setState({ openedPack: null });
+  boughtSeatsView = () => {
+    this.setState({ boughtSeats: null });
   };
 
   render() {
     if (this.state.errorMsg) {
       return <p>{this.state.errorMsg}</p>;
     }
-
     if (!this.state.userStats) {
       return <p>Loading user collection...</p>;
     }
@@ -140,18 +139,18 @@ export class Collection extends React.Component {
       return <p>Loading rooms...</p>;
     }
 
-    if (this.state.openedPack) {
-      const rooms = this.state.openedPack.roomIdsInOpenedPack.map((id) => {
-        return this.state.collection.rooms.find((r) => r.roomId === id);
+    if (this.state.boughtSeats) {
+      const rooms = this.state.boughtSeats.roomIdsInBoughtSeat.map((id) => {
+        return this.state.collection.rooms.find((r) => r.roomId == id);
       });
 
       return (
         <div className='room-pack'>
           <button onClick={this.closePackView}>Close</button>
-          <h1>Pack Content</h1>
+          <h1>Your bought tickets!</h1>
           <div className='room-container'>
-            {rooms.map((r) => {<button onClick={this.closePackView}>Close</button>
-              r.quantity = 1;
+            {rooms.map((r) => {
+              r.seats = 1;
               return <Movie key={r.roomId} {...r} />;
             })}
           </div>
@@ -159,32 +158,39 @@ export class Collection extends React.Component {
       );
     }
 
-    const packs = this.state.userStats.roomPacks;
-
     return (
-      <div>
-        <div className='players-stuff'>
-          <p>Bonus Points: {this.state.userStats.coins} &#128176;</p>
-          <p>Free Ticket Packs: {packs} &#127752;</p>
-          <button
-            className='button'
-            disabled={packs <= 0}
-            onClick={this.openPack}>
-            Open Pack
-          </button>
-        </div>
-        <div className='room-container'>
-          {this.state.collection.rooms.map((r) => {
-            const info = this.state.userStats.ownedRooms.find(
-              (z) => z.roomId === r.roomId
-            );
-            const quantity = info ? info.numberOfCopies : 0;
-            return <Movie key={r.roomId} {...r} quantity={quantity} />;
-          })}
-        </div>
-      </div>
+      <>
+        <p>Buy Ticket Site!</p>
+        <button className='button' onClick={this.buyTicket}>
+          Buy Tickets
+        </button>
+        <table>
+          <thead>
+            <tr>
+              <th>Room Name</th>
+              <th>Movie Showing</th>
+              <th>Price</th>
+              <th>Seats</th>
+              <th>Buy Ticket</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.collection.rooms.map((r) => (
+              <tr key={'key_' + r.roomId}>
+                <td>{r.roomId}</td>
+                <td>{r.movieName}</td>
+                <td>{r.price}</td>
+                <td>{r.seats}</td>
+                <td>
+                  <button onClick={() => this.buyTicket(r.roomId)}>Buy</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
     );
   }
 }
 
-export default withRouter(Collection);
+export default withRouter(Ticket);
