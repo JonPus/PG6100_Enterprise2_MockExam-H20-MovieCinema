@@ -26,53 +26,57 @@ class RestAPI {
 
     @ApiOperation("Return info on all the rooms in the cinema")
     @GetMapping(
-            path = ["/collection_$LATEST"],
-            produces = [MediaType.APPLICATION_JSON_VALUE]
+        path = ["/collection_$LATEST"],
+        produces = [MediaType.APPLICATION_JSON_VALUE]
     )
     fun getLatest(): ResponseEntity<WrappedResponse<CollectionDto>> {
 
         val collection = RoomCollection.get()
 
         return ResponseEntity
-                .status(200)
-                .cacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).cachePublic())
-                .body(WrappedResponse(200, collection).validated())
+            .status(200)
+            .cacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).cachePublic())
+            .body(WrappedResponse(200, collection).validated())
 
     }
 
     @ApiOperation("Old-version endpoints. Will automatically redirect to most recent version")
-    @GetMapping(path = [
-        "/collection_v0_001",
-        "/collection_v0_002",
-        "/collection_v0_003"
-    ])
-    fun getOld() : ResponseEntity<Void>{
+    @GetMapping(
+        path = [
+            "/collection_v0_001",
+            "/collection_v0_002",
+            "/collection_v0_003"
+        ]
+    )
+    fun getOld(): ResponseEntity<Void> {
 
         return ResponseEntity.status(301)
-                .location(URI.create("/api/rooms/collection_$LATEST"))
-                .build()
+            .location(URI.create("/api/rooms/collection_$LATEST"))
+            .build()
     }
 
     @ApiOperation("Return the image for the specified room")
     @GetMapping(
-            path= ["/imgs/{imgId}"],
-            produces= ["image/svg+xml"]
+        path = ["/imgs/{imgId}"],
+        produces = ["image/svg+xml"]
     )
-    fun getImage(@PathVariable("imgId") imgId: String) : ResponseEntity<String>{
+    fun getImage(@PathVariable("imgId") imgId: String): ResponseEntity<String> {
 
-        val folder = when{
-            imgId.run{ endsWith("-monster.svg") || endsWith("-cyclops.svg")
-                    || endsWith("-dragon.svg") || endsWith("-snake.svg")}
+        val folder = when {
+            imgId.run {
+                endsWith("-monster.svg") || endsWith("-cyclops.svg")
+                        || endsWith("-dragon.svg") || endsWith("-snake.svg")
+            }
             -> "/1236106-monsters"
             else -> return ResponseEntity.status(400).build()
         }
 
         val svg = javaClass.getResource("$folder/svg/$imgId")?.readText()
-                ?: return ResponseEntity.notFound().build()
+            ?: return ResponseEntity.notFound().build()
 
         return ResponseEntity
-                .status(200)
-                .cacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).cachePublic())
-                .body(svg)
+            .status(200)
+            .cacheControl(CacheControl.maxAge(365, TimeUnit.DAYS).cachePublic())
+            .body(svg)
     }
 }

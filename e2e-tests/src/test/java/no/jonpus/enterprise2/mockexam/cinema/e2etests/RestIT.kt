@@ -108,7 +108,6 @@ class RestIT {
                     .then()
                     .statusCode(401)
 
-
                 val password = "123456"
 
                 val cookie = given().contentType(ContentType.JSON)
@@ -187,7 +186,6 @@ class RestIT {
                 /*given().get("/api/movies/$id")
                     .then()
                     .statusCode(404)*/
-
 
                 val password = "123456"
 

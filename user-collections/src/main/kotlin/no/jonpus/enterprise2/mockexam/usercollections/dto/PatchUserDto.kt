@@ -18,5 +18,4 @@ data class PatchUserDto(
 
         @get:ApiModelProperty("Optional ticket Id, if the command requires one")
         var roomId: String? = null
-
 )

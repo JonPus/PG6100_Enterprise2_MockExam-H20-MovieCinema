@@ -44,8 +44,9 @@ class Application {
     }
 
     @Bean
-    fun binding(fanout: FanoutExchange,
-                queue: Queue
+    fun binding(
+        fanout: FanoutExchange,
+        queue: Queue
     ): Binding {
         return BindingBuilder.bind(queue).to(fanout)
     }

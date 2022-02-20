@@ -20,5 +20,4 @@ class RoomCopy(
 
         @get:Min(0)
         var numberOfCopies: Int = 0
-
 )

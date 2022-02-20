@@ -116,8 +116,6 @@ class UserService(
         user.coins += millValue
     }
 
-
-
     fun openPack(userId: String): List<String> {
 
         validateUser(userId)
@@ -141,6 +139,4 @@ class UserService(
 
         return ids
     }
-
-
 }

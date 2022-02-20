@@ -79,7 +79,6 @@ services:
       - auth
       - rabbitmq
 
-
   scores:
     build:
       context: ./movies
